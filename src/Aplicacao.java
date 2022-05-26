@@ -8,6 +8,7 @@ import fabricas.TemaFactory;
 import fabricas.TemaFactoryImpl;
 import fabricas.ElementoGraficoFactory;
 import repositorios.RepositoryFactory;
+import repositorios.MemoriaRepositoryFactory;
 
 public class Aplicacao {
 	
@@ -68,7 +69,7 @@ public class Aplicacao {
 		String tipo = this.tipoRepositoryFactory;
 		
 		if (tipo.equals("memoria")) {
-			// factory = MemoriaRepositoryFactory.getSoleInstance();
+			factory = MemoriaRepositoryFactory.getSoleInstance();
 		}
 		
 		if (tipo.equals("relacional")) {
