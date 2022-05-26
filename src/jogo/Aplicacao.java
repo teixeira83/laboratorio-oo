@@ -1,3 +1,5 @@
+package jogo;
+
 import fabricas.JogadorFactory;
 import fabricas.JogadorFactoryImpl;
 import fabricas.PalavraFactory;
@@ -7,6 +9,8 @@ import fabricas.RodadaSorteioFactory;
 import fabricas.TemaFactory;
 import fabricas.TemaFactoryImpl;
 import fabricas.ElementoGraficoFactory;
+import fabricas.ElementoGraficoTextoFactory;
+import fabricas.ElementoGraficoImagemFactory;
 import repositorios.RepositoryFactory;
 import repositorios.MemoriaRepositoryFactory;
 
@@ -84,11 +88,11 @@ public class Aplicacao {
 		String tipo = this.tipoElementoGraficoFactory;
 		
 		if(tipo.equals("texto")) {
-			// factory = ElementoGraficoTextoFactory.getSoleInstance();
+			factory = ElementoGraficoTextoFactory.getSoleInstance();
 		}
 		
 		if(tipo.equals("imagem")) {
-			// factory = ElementoGraficoImagemFactory.getSoleInstance();
+			factory = ElementoGraficoImagemFactory.getSoleInstance();
 		}
 		
 		return factory;
