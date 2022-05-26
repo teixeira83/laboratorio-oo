@@ -4,7 +4,11 @@ import fabricas.PalavraFactory;
 import fabricas.PalavraFactoryImpl;
 import fabricas.RodadaFactory;
 import fabricas.RodadaSorteioFactory;
+import fabricas.TemaFactory;
+import fabricas.TemaFactoryImpl;
+import fabricas.ElementoGraficoFactory;
 import repositorios.RepositoryFactory;
+
 public class Aplicacao {
 	
 	private final String[] TIPOS_REPOSITORY_FACTORY = { "memoria", "relacional" };
@@ -74,8 +78,20 @@ public class Aplicacao {
 		return factory;
     }
 
-    // public ElementoGraficoFactory getElementoGraficoFactory() {
-    // }
+    public ElementoGraficoFactory getElementoGraficoFactory() {
+		ElementoGraficoFactory factory = null;
+		String tipo = this.tipoElementoGraficoFactory;
+		
+		if(tipo.equals("texto")) {
+			// factory = ElementoGraficoTextoFactory.getSoleInstance();
+		}
+		
+		if(tipo.equals("imagem")) {
+			// factory = ElementoGraficoImagemFactory.getSoleInstance();
+		}
+		
+		return factory;
+    }
 
 	public RodadaFactory getRodadaFactory() {
 		RodadaFactory factory = null;
@@ -85,8 +101,9 @@ public class Aplicacao {
 		return factory;
 	}
 	
-	// public TemaFactory getTemaFactory() {
-	// }
+	public TemaFactory getTemaFactory() {
+		return TemaFactoryImpl.getSoleInstance();
+	}
 	
 	public PalavraFactory getPalavraFactory() {
 		return PalavraFactoryImpl.getSoleInstance();
