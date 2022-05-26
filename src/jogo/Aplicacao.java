@@ -11,8 +11,9 @@ import fabricas.TemaFactoryImpl;
 import fabricas.ElementoGraficoFactory;
 import fabricas.ElementoGraficoTextoFactory;
 import fabricas.ElementoGraficoImagemFactory;
-import repositorios.RepositoryFactory;
 import repositorios.MemoriaRepositoryFactory;
+import repositorios.RepositoryFactory;
+import repositorios.BDRRepositoryFactory;
 
 public class Aplicacao {
 	
@@ -77,7 +78,7 @@ public class Aplicacao {
 		}
 		
 		if (tipo.equals("relacional")) {
-			// factory = BDRRepositoryFactory.getSoleInstance();
+			factory = BDRRepositoryFactory.getSoleInstance();
 		}
 		
 		return factory;
