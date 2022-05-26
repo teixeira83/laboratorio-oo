@@ -1,5 +1,7 @@
 import fabricas.JogadorFactory;
 import fabricas.JogadorFactoryImpl;
+import fabricas.PalavraFactory;
+import fabricas.PalavraFactoryImpl;
 import repositorios.RepositoryFactory;
 public class Aplicacao {
 	
@@ -73,14 +75,20 @@ public class Aplicacao {
     // public ElementoGraficoFactory getElementoGraficoFactory() {
     // }
 
-	// public RodadaFactory getRodadaFactory()	 {
+	// public RodadaFactory getRodadaFactory() {
+	// 	RodadaFactory factory = null;
+	// 	if (this.tipoRodadaFactory.equals("sorteio")) {
+	// 		factory = RodadaSorteioFactory.getSoleInstance();
+	// 	};
+	// 	return factory;
 	// }
 	
 	// public TemaFactory getTemaFactory() {
 	// }
 	
-	// public PalavraFactory getPalavraFactory() {
-	// }
+	public PalavraFactory getPalavraFactory() {
+		return PalavraFactoryImpl.getSoleInstance();
+	}
 	
 	public JogadorFactory getJogadorFactory() {
 		return JogadorFactoryImpl.getSoleInstance();
