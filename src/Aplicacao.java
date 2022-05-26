@@ -1,5 +1,6 @@
+import fabricas.JogadorFactory;
+import fabricas.JogadorFactoryImpl;
 import repositorios.RepositoryFactory;
-
 public class Aplicacao {
 	
 	private final String[] TIPOS_REPOSITORY_FACTORY = { "memoria", "relacional" };
@@ -54,13 +55,25 @@ public class Aplicacao {
 		this.configurar();
 	}
 	
-    // public RepositoryFactory getRepositoryFactory() {
-    // }
+    public RepositoryFactory getRepositoryFactory() {
+		RepositoryFactory factory = null;
+		String tipo = this.tipoRepositoryFactory;
+		
+		if (tipo.equals("memoria")) {
+			// factory = MemoriaRepositoryFactory.getSoleInstance();
+		}
+		
+		if (tipo.equals("relacional")) {
+			// factory = BDRRepositoryFactory.getSoleInstance();
+		}
+		
+		return factory;
+    }
 
     // public ElementoGraficoFactory getElementoGraficoFactory() {
     // }
 
-	// public RodadaFactory getRodadaFactory() {
+	// public RodadaFactory getRodadaFactory()	 {
 	// }
 	
 	// public TemaFactory getTemaFactory() {
@@ -69,7 +82,8 @@ public class Aplicacao {
 	// public PalavraFactory getPalavraFactory() {
 	// }
 	
-	// public JogadorFactory getJogadorFactory() {
-	// }
+	public JogadorFactory getJogadorFactory() {
+		return JogadorFactoryImpl.getSoleInstance();
+	}
 	
 }
