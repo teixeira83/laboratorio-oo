@@ -10,19 +10,19 @@ public class PalavraAppService {
 	private PalavraFactory palavraFactory;
 	private TemaRepository temaRepository;
 	
-	private PalavraAppService soleInstance;
+	private static PalavraAppService soleInstance;
 	
-	public void createSoleInstance(TemaRepository temaRepository, 
+	public static void createSoleInstance(TemaRepository temaRepository, 
 							       PalavraRepository palavraRepository, 
 							       PalavraFactory palavraFactory) {
 		
-		this.soleInstance = new PalavraAppService(temaRepository, 
+		soleInstance = new PalavraAppService(temaRepository, 
 												  palavraRepository, 
 												  palavraFactory);
 	}
 	
-	public PalavraAppService getSoleInstance() {
-		return this.soleInstance;
+	public static PalavraAppService getSoleInstance() {
+		return soleInstance;
 	}
 	
 	public boolean novaPalavra(String palavra, long idTema) {
