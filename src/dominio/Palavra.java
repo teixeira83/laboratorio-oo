@@ -32,7 +32,10 @@ public class Palavra extends ObjetoDominioImpl {
 	}
 	
 	public static Palavra criar(long id, String palavra, Tema tema) {
-		return new Palavra(id, palavra, tema);
+		if(letraFactory != null) {
+			return new Palavra(id, palavra, tema);
+		}		
+		return null;
 	}
 	
 	public static Palavra reconstituir(long id, String palavra, Tema tema) {
