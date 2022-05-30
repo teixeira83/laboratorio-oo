@@ -1,5 +1,6 @@
 package servicos;
 
+import dominio.Palavra;
 import fabricas.PalavraFactory;
 import repositorios.PalavraRepository;
 import repositorios.RepositoryException;
@@ -13,8 +14,8 @@ public class PalavraAppService {
 	private static PalavraAppService soleInstance;
 	
 	public static void createSoleInstance(TemaRepository temaRepository, 
-							       PalavraRepository palavraRepository, 
-							       PalavraFactory palavraFactory) {
+							       		  PalavraRepository palavraRepository, 
+							       		  PalavraFactory palavraFactory) {
 		
 		soleInstance = new PalavraAppService(temaRepository, 
 												  palavraRepository, 
@@ -32,8 +33,11 @@ public class PalavraAppService {
 		else {
 			// insere nova palavra no repositório
 			try{
-				palavraRepository.inserir(this.palavraFactory.getPalavra(
-					palavra, this.temaRepository.getPorId(idTema)));
+				palavraRepository.inserir(Palavra.criar(this.palavraRepository.getProximoId(), 
+														palavra, 
+														this.temaRepository.getPorId(idTema))
+				);
+				
 				return true;
 			}
 			catch (RepositoryException e) {
