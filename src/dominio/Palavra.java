@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.lang.Character;
 
 import fabricas.LetraFactory;
 
@@ -26,16 +27,17 @@ public class Palavra extends ObjetoDominioImpl {
 		this.encoberta = letraFactory.getLetraEncoberta();
 		this.encoberta.toString();
 		this.letras = new Letra[palavra.length()];
+		
 		for(int c = 0; c < palavra.length(); c++) {
 			this.letras[c] = letraFactory.getLetra(palavra.charAt(c));
 		}
 	}
 	
 	public static Palavra criar(long id, String palavra, Tema tema) {
-		if(letraFactory != null) {
+		if(letraFactory != null)
 			return new Palavra(id, palavra, tema);
-		}		
-		return null;
+		else
+			return null;
 	}
 	
 	public static Palavra reconstituir(long id, String palavra, Tema tema) {
@@ -50,7 +52,6 @@ public class Palavra extends ObjetoDominioImpl {
 		String p = "";
 		for(Letra l : this.letras)
 			p = p.concat(String.valueOf(l.getCodigo()));
-	
 		return p.toLowerCase().equals(palavra.toLowerCase());
 	}
 	
@@ -61,7 +62,7 @@ public class Palavra extends ObjetoDominioImpl {
 	public int[] tentar(char codigo) {
 		ArrayList<Integer> posicoesList  = new ArrayList<Integer>();
 		for(int c = 0; c < this.letras.length ; c++) {
-			if (codigo == this.letras[c].toString().toLowerCase().charAt(0)) {
+			if (Character.toLowerCase(codigo) == this.letras[c].toString().toLowerCase().charAt(0)) {
 				posicoesList.add(c);
 			}
 		}
@@ -93,7 +94,13 @@ public class Palavra extends ObjetoDominioImpl {
 	}
 	
 	public Letra getLetra(int posicao) {
-		return this.letras[posicao];
+		try {
+			return this.letras[posicao];
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Index "+ posicao +" out of bounds for length " + getTamanho());
+			return null;
+		}
 	}
 	
 	public Letra[] getLetras() {
