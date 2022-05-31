@@ -83,7 +83,7 @@ public class MemoriaPalavraRepository implements PalavraRepository {
 		if(this.pool.size() < 1)
 			return new Palavra[0];
 		
-		return (Palavra[])this.pool.values().toArray();
+		return (Palavra[])this.pool.values().toArray(new Palavra[0]); // adicionei 'new Palavra[0]' pois sem esse parâmetro estava estranhamento retornando um Array de Objects 
 	}
 
 	@Override
