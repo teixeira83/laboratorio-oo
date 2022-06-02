@@ -23,7 +23,7 @@ public class PalavraFactoryImpl extends EntityFactory implements PalavraFactory 
 	
 	@Override
 	public Palavra getPalavra(String palavra, Tema tema) {
-		return this.getPalavraRepository().getPalavra(palavra);
+		return Palavra.criar(this.getPalavraRepository().getProximoId(), palavra, tema);
 	}
 
 	private PalavraRepository getPalavraRepository() {
