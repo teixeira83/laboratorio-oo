@@ -29,7 +29,7 @@ public class Palavra extends ObjetoDominioImpl {
 		this.letras = new Letra[palavra.length()];
 		
 		for(int c = 0; c < palavra.length(); c++) {
-			this.letras[c] = letraFactory.getLetra(palavra.charAt(c));
+			this.letras[c] = letraFactory.getLetra(Character.toLowerCase(palavra.charAt(c)));
 		}
 	}
 	
