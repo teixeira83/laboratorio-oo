@@ -33,18 +33,29 @@ public class RodadaSorteioFactory extends RodadaFactoryImpl implements RodadaFac
 		Random random = new Random();
 		
 		Tema[] temas = this.getTemaRepository().getTodos();
+		
 		Tema tema = temas[random.nextInt(temas.length)];
 		
 		Palavra[] palavrasDoTema = this.getPalavraRepository().getPorTema(tema);
-		
+	
 		int quantPalavras = random.nextInt(Rodada.getMaxPalavras()) + 1;
-		HashSet<Palavra> escolhidas = new HashSet<Palavra>();
-		while(escolhidas.size() < quantPalavras) {
-			escolhidas.add(
-				palavrasDoTema[random.nextInt(palavrasDoTema.length - 1)]);
-		}	
 		
-		Palavra[] palavras =  new Palavra[quantPalavras];
+		// caso a quantidade de palavras salvas for menor que o número de palavras escolhido
+		if(palavrasDoTema.length < quantPalavras) {
+			quantPalavras = palavrasDoTema.length;
+		}
+		
+		HashSet<Palavra> escolhidas = new HashSet<Palavra>();
+		do {
+			Palavra palavraSorteada = palavrasDoTema[random.nextInt(palavrasDoTema.length)];
+			
+			if(!escolhidas.contains(palavraSorteada)){
+				escolhidas.add(palavraSorteada);
+			}
+			
+		}while(escolhidas.size() < quantPalavras);
+		
+		Palavra[] palavras =  new Palavra[escolhidas.size()];
 		int p = 0;
 		Iterator<Palavra> it = escolhidas.iterator();
 		while(it.hasNext()) {
