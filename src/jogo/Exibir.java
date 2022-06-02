@@ -63,10 +63,14 @@ public class Exibir {
 	}
 	
     public void mostrarTelaJogo(Rodada r) {
-
-    	String status = "Em execu��o";
+    	String status = "Em execucao";
     	String pontos = "";
-    	String comando = "\nTente uma letra, arrisque palavras ou 0 para sair:";
+    	String comando = "\nDigite: \n"
+    			+ "2 - Tentar uma letra\n"
+    			+ "3 - Arriscar palavras\n"
+    			+ "0 - Sair\n"
+    			+ "\nNúmero: ";
+    	
     	if(r.encerrou()) {
     		status = "Encerrado";
     		pontos = " = "+ r.getJogador().getPontuacao() + " Pontos";
@@ -84,13 +88,12 @@ public class Exibir {
     	System.out.println("Jogador: "+nome_jogador);
     	System.out.println("Status do Jogo: "+status+"\n");
     	System.out.println("Boneco:");
-    	this.renderizarBoneco(r);
+    	if(r.getQtdeErros() > 0) {
+    		this.renderizarBoneco(r);
+    	}
     	System.out.println("\nErros: "+r.getQtdeErros()+"/"+Rodada.getMaxErros()+erradasStr);
     	System.out.println("\nTema: "+tema);
     	this.renderizarPalavras(r);
-    	System.out.println(comando);
-    	
-        	
+    	System.out.println(comando);  	
     }
-	
 }
