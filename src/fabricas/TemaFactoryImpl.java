@@ -21,7 +21,7 @@ public class TemaFactoryImpl extends EntityFactory implements TemaFactory {
 	
 	@Override
 	public Tema getTema(String nome) {
-		return this.getTemaRepository().getPorNome(nome);
+		return Tema.criar(this.getTemaRepository().getProximoId(), nome);
 	}
 
 	private TemaRepository getTemaRepository() {
