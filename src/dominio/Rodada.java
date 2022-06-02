@@ -5,7 +5,6 @@ import java.util.HashSet;
 import fabricas.BonecoFactory;
 
 public class Rodada extends ObjetoDominioImpl {
-	
 	private static int maxPalavras = 3;
 	private static int maxErros = 10;
 	private static int pontosQuandoDescobreTodasAsPalavras = 100; 
@@ -22,7 +21,7 @@ public class Rodada extends ObjetoDominioImpl {
 	}
 	
 	public static void setMaxPalavras(int max) {
-		maxErros = max;
+		maxPalavras = max;
 	}
 	
 	public static int getMaxErros() {
@@ -69,12 +68,12 @@ public class Rodada extends ObjetoDominioImpl {
 		super(id);
 		this.jogador = jogador;
 		int qtdPalavras = palavras.length;
+		System.out.println(qtdPalavras);
 		this.itens = new Item[qtdPalavras];
 		for(int c = 0; c < qtdPalavras; c++) {
 			this.itens[c] = Item.criar(id, palavras[c]);
 		}
 		this.erradas = new Letra[0];
-		
 	}
 	
 	private Rodada(long id, Item[] itens, Letra[] erradas, Jogador jogador) {
@@ -103,24 +102,28 @@ public class Rodada extends ObjetoDominioImpl {
 	public Jogador getJogador() {
 		return this.jogador;
 	}
-
-	public void exibirBoneco(Object contexto) {
-		bonecoFactory.getBoneco().exibir(contexto, this.getQtdeErros());
-	}
 	
 	public void exibirItens(Object contexto) {
 		for(Item i : this.itens)
 			i.exibir(contexto);	
 	}
 
+	public void exibirBoneco(Object contexto) {
+		bonecoFactory.getBoneco().exibir(contexto, this.getQtdeErros());
+	}
+
 	public void exibirPalavras(Object contexto) {
 		for(Item i : this.itens) {
 			Palavra p = i.getPalavra();
 			boolean[] posicoes = new boolean[p.getTamanho()]; 
-			for( int b = 0; b < p.getTamanho(); b++)
+			for(int b = 0; b < p.getTamanho(); b++)
 				posicoes[b] = true;
 			p.exibir(posicoes, contexto);
 		}
+	}
+	
+	public void exibirLetrasErradas(Object contexto) {
+		//falta preencher
 	}
 	
 	public void arriscar(String[] palavras) {
@@ -128,20 +131,29 @@ public class Rodada extends ObjetoDominioImpl {
 			for(int i = 0; i < this.itens.length; i++) {
 				this.itens[i].arriscar(palavras[i]);
 			}
+			
+			if(this.encerrou())
+				this.jogador.setPontuacao(this.jogador.getPontuacao() + this.calcularPontos());
 		}
-		if(this.encerrou())
-			this.jogador.setPontuacao(this.calcularPontos());
+		else {
+			throw new RuntimeException();
+		}
+		
 	}
 		
 	public int getQtdeAcertos() {
 		int acertos = 0;
 		for(Item i : this.itens)
-			acertos += i.qtdeLetrasEncobertas();		
+			acertos += i.getLetrasDescobertas().length;
 		return acertos;
 	}
 	
 	public int getQtdeErros() {
 		return this.erradas.length;
+	}
+	
+	public int getQtdeTentativas() {
+		return this.getTentativas().length;
 	}
 	
 	public int getQtdeTentativaRestantes() {
@@ -186,7 +198,7 @@ public class Rodada extends ObjetoDominioImpl {
 				certas.add(l);
 			}
 		}
-		return (Letra[])certas.toArray();
+		return (Letra[])certas.toArray(new Letra[0]);
 	}
 
 	public Letra[] getTentativas() {
@@ -208,22 +220,27 @@ public class Rodada extends ObjetoDominioImpl {
 	}
 	
 	public void tentar(char codigo) {
-		Boolean errou = true;
-		if (!this.encerrou())
-			for(Item i : this.itens)
-				if(i.tentar(codigo))
-					errou = false;
-		if(errou) {
-			Letra[] novas = new Letra[this.erradas.length + 1];
-			for(int l = 0; l < this.erradas.length ; l++)
-				novas[l] = this.erradas[l];
-			Letra nova = Palavra.getLetraFactory().getLetra(codigo);
-			novas[novas.length - 1] = nova;
-			this.erradas = novas;
+		if(!this.encerrou()) {
+			Boolean errou = true;
+			if (!this.encerrou())
+				for(Item i : this.itens)
+					if(i.tentar(codigo))
+						errou = false;
+			if(errou) {
+				Letra[] novas = new Letra[this.erradas.length + 1];
+				for(int l = 0; l < this.erradas.length ; l++)
+					novas[l] = this.erradas[l];
+				Letra nova = Palavra.getLetraFactory().getLetra(codigo);
+				novas[novas.length - 1] = nova;
+				this.erradas = novas;
+			}
+			
+			if(this.encerrou()) 
+				this.jogador.setPontuacao(this.jogador.getPontuacao() + this.calcularPontos());
 		}
-		
-		if(this.encerrou())
-			this.jogador.setPontuacao(this.calcularPontos());
+		else {
+			throw new RuntimeException();
+		}
 	}
 
 }
