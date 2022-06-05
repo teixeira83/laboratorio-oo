@@ -98,9 +98,13 @@ public class TesteRodada {
 	        	case "3":
 	        		System.out.print("Nome do jogador:");
 			        String nomeJogador = br.readLine();
-			        Jogador jogador = aplicacao.getJogadorFactory().getJogador(nomeJogador);
 			        
-			        aplicacao.getRepositoryFactory().getJogadorRepository().inserir(jogador);
+			        Jogador jogador = aplicacao.getRepositoryFactory().getJogadorRepository().getPorNome(nomeJogador);
+			        
+			        if(jogador == null) {
+			        	jogador = aplicacao.getJogadorFactory().getJogador(nomeJogador);
+			        	aplicacao.getRepositoryFactory().getJogadorRepository().inserir(jogador);
+			        }
 	        		
 	        		// nova rodada
 	        		rodada = this.setaNovaRodada(
@@ -118,7 +122,12 @@ public class TesteRodada {
 	        	case "5":
 	        		System.out.print("Novo tema:");
 			        String tema = br.readLine();
-			        aplicacao.getRepositoryFactory().getTemaRepository().inserir(aplicacao.getTemaFactory().getTema(tema));
+			        if(aplicacao.getRepositoryFactory().getTemaRepository().getPorNome(tema)!= null) {
+			        	System.out.print("Tema já cadastrado");
+			        }
+			        else {
+			        	aplicacao.getRepositoryFactory().getTemaRepository().inserir(aplicacao.getTemaFactory().getTema(tema));
+			        }
         		break;
         		
 	        	case "6":
