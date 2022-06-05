@@ -11,37 +11,39 @@ public class TestePalavra {
 		
     	Palavra.setLetraFactory(aplicacao.getElementoGraficoFactory());
     	
-    	Tema tema = Tema.criar(1, "Nomes");
+    	aplicacao.getRepositoryFactory().getTemaRepository().inserir(
+    			aplicacao.getTemaFactory().getTema("Nomes"));
     	
-    	aplicacao.getRepositoryFactory().getTemaRepository().inserir(tema);
+    	aplicacao.getRepositoryFactory().getTemaRepository().inserir(
+    			aplicacao.getTemaFactory().getTema("Comidas"));
     	
     	Palavra p1 = Palavra.criar(
     			aplicacao.getRepositoryFactory().getPalavraRepository().getProximoId(), 
-    			"Davi", tema);
+    			"Davi", aplicacao.getRepositoryFactory().getTemaRepository().getPorNome("Nomes"));
     	
     	aplicacao.getRepositoryFactory().getPalavraRepository().inserir(p1);
     	
     	Palavra p2 = Palavra.criar(
     			aplicacao.getRepositoryFactory().getPalavraRepository().getProximoId(), 
-    			"Silas", tema);
+    			"Silas", aplicacao.getRepositoryFactory().getTemaRepository().getPorNome("Nomes"));
     	
     	aplicacao.getRepositoryFactory().getPalavraRepository().inserir(p2);
     	
     	Palavra p3 = Palavra.criar(
     			aplicacao.getRepositoryFactory().getPalavraRepository().getProximoId(), 
-    			"Marcos", tema);
+    			"Marcos", aplicacao.getRepositoryFactory().getTemaRepository().getPorNome("Nomes"));
     	
     	aplicacao.getRepositoryFactory().getPalavraRepository().inserir(p3);
     	
     	Palavra p4 = Palavra.criar(
     			aplicacao.getRepositoryFactory().getPalavraRepository().getProximoId(), 
-    			"João", tema);
+    			"João", aplicacao.getRepositoryFactory().getTemaRepository().getPorNome("Nomes"));
     	
     	aplicacao.getRepositoryFactory().getPalavraRepository().inserir(p4);
     	
     	Palavra p5 = Palavra.criar(
     			aplicacao.getRepositoryFactory().getPalavraRepository().getProximoId(), 
-    			"João", tema);
+    			"João", aplicacao.getRepositoryFactory().getTemaRepository().getPorNome("Nomes"));
     	
     	aplicacao.getRepositoryFactory().getPalavraRepository().inserir(p5);
     	
