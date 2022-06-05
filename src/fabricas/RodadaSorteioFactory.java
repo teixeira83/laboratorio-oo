@@ -34,7 +34,12 @@ public class RodadaSorteioFactory extends RodadaFactoryImpl implements RodadaFac
 		
 		Tema[] temas = this.getTemaRepository().getTodos();
 		
-		Tema tema = temas[random.nextInt(temas.length)];
+		Tema tema = null;
+		
+		// seleção apenas de tema que possua ao menos uma palavra
+		do{
+			tema = temas[random.nextInt(temas.length)];
+		}while(this.getPalavraRepository().getPorTema(tema).length == 0);
 		
 		Palavra[] palavrasDoTema = this.getPalavraRepository().getPorTema(tema);
 	
