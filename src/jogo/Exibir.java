@@ -66,34 +66,47 @@ public class Exibir {
     	String status = "Em execucao";
     	String pontos = "";
     	String comando = "\nDigite: \n"
-    			+ "2 - Tentar uma letra\n"
-    			+ "3 - Arriscar palavras\n"
+    			+ "1 - Tentar uma letra\n"
+    			+ "2 - Arriscar palavras\n"
     			+ "0 - Sair\n"
     			+ "\nNúmero: ";
     	
     	if(r.encerrou()) {
     		status = "Encerrado";
-    		pontos = " = "+ r.getJogador().getPontuacao() + " Pontos";
-    		comando = "\nDigite para 1 novo jogo ou digite 0 para sair:";
+    		pontos = r.getJogador().getPontuacao() + " pontos";
+    		System.out.print(status + "\n" + pontos + "\n");
     	}
-    	String nome_jogador = r.getJogador().getNome() + pontos;
-    	String tema = r.getTema().getNome();
-    	Letra[] erradas = r.getErradas();
-    	String erradasStr = " => ";
-    	for(Letra l : erradas)
-    		erradasStr = erradasStr + l.getCodigo() + " ";
+    	else {
+    		String nome_jogador = r.getJogador().getNome() + pontos;
+        	String tema = r.getTema().getNome();
+        	Letra[] erradas = r.getErradas();
+        	String erradasStr = " => ";
+        	for(Letra l : erradas)
+        		erradasStr = erradasStr + l.getCodigo() + " ";
+        	
+           	System.out.println("\n\nJogo da Forca");
+        	System.out.println("=============\n");
+        	System.out.println("Jogador: "+nome_jogador);
+        	System.out.println("Status do Jogo: "+status+"\n");
+        	System.out.println("Boneco:");
+        	if(r.getQtdeErros() > 0) {
+        		this.renderizarBoneco(r);
+        	}
+        	System.out.println("\nErros: "+r.getQtdeErros()+"/"+Rodada.getMaxErros()+erradasStr);
+        	System.out.println("\nTema: "+tema);
+        	this.renderizarPalavras(r);
+        	System.out.println(comando); 
+    	}
+    }
+    
+    public void mostrarMenu() {
+    	String comando = "\nDigite: \n"
+				+ "3 - Novo jogo\n"
+				+ "4 - Jogador com maior pontuação\n"
+				+ "5 - Cadastrar novo tema\n"
+				+ "6 - Cadastrar nova palavra\n"
+				+ "0 - Sair\n";
     	
-       	System.out.println("\n\nJogo da Forca");
-    	System.out.println("=============\n");
-    	System.out.println("Jogador: "+nome_jogador);
-    	System.out.println("Status do Jogo: "+status+"\n");
-    	System.out.println("Boneco:");
-    	if(r.getQtdeErros() > 0) {
-    		this.renderizarBoneco(r);
-    	}
-    	System.out.println("\nErros: "+r.getQtdeErros()+"/"+Rodada.getMaxErros()+erradasStr);
-    	System.out.println("\nTema: "+tema);
-    	this.renderizarPalavras(r);
-    	System.out.println(comando);  	
+    	System.out.println(comando); 
     }
 }
