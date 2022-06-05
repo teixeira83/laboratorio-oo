@@ -46,4 +46,9 @@ public class BDRJogadorRepository implements JogadorRepository {
 	public long getProximoId() {
 		return 0;
 	}
+	
+	@Override
+	public Jogador getTopJogador() {
+		return null;
+	}
 }
