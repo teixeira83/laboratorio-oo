@@ -43,7 +43,6 @@ public class MemoriaJogadorRepository implements JogadorRepository {
 		this.inserir(jogador);
 	}
 
-
 	@Override
 	public Jogador getPorNome(String nome) {
 		if(this.pool.size() < 1)
@@ -81,4 +80,18 @@ public class MemoriaJogadorRepository implements JogadorRepository {
 		return max + 1;
 	}
 
+	@Override
+	public Jogador getTopJogador() {
+		int maiorPontuacao = 0;
+		Jogador jogadorComMaiorPontuacao = null;
+		
+		for(Jogador j : this.pool.values()) {
+			if(j.getPontuacao() > maiorPontuacao) {
+				jogadorComMaiorPontuacao = j;
+				maiorPontuacao = j.getPontuacao();
+			}
+		}
+		
+		return jogadorComMaiorPontuacao;
+	}
 }
