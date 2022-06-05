@@ -8,4 +8,5 @@ public interface JogadorRepository extends Repository {
 	public void inserir(Jogador jogador) throws RepositoryException;
 	public Jogador getPorNome(String nome);
 	public Jogador getPorId(long id);	
+	public Jogador getTopJogador();
 }
